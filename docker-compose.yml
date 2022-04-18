@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+    server:
+        build:
+            context: ./docker/server
+        image: ${SERVER_VERSION}
+        container_name: ${COMPOSE_PROJECT_NAME:-web}_server
+        volumes:
+            - ./app/:/var/www/app/
+            - ./docker/server/:/etc/nginx/conf.d
+        ports:
+            - ${SERVER_PORT:-8001}:80
+        depends_on:
+            - app
+        networks:
+            - app-network
+    app:
+        build:
+            context: ./docker/pl
+        image: ${PL_VERSION}
+        container_name: ${COMPOSE_PROJECT_NAME:-app}_files
+        volumes:
+            - ./app/:/var/www/app/
+        depends_on:
+            - db
+        networks:
+            - app-network
+    db:
+        image: ${DB_VERSION:-mariadb:10.3.9}
+        container_name: ${COMPOSE_PROJECT_NAME:-app}_db
+        volumes:
+            - ./app_db/:/var/lib/mysql
+        environment:
+            MYSQL_USER: ${DATABASE_USER:-user}
+            MYSQL_PASSWORD: ${DATABASE_PASSWORD:-password}
+            MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-rootpassword}
+            MYSQL_DATABASE: ${COMPOSE_PROJECT_NAME:-database}
+        ports:
+            - ${DATABASE_PORT:-3306}:3306
+        networks:
+            - app-network
+
+volumes:
+    db:
+
+networks:
+    app-network:
