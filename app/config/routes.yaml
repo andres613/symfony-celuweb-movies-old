@@ -1,0 +1,3 @@
+movies:
+    path: /
+    controller: App\Controller\MovieController::index
