@@ -39,6 +39,13 @@ class User
     private $email;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=30, nullable=false)
+     */
+    private $password;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Movie", mappedBy="user")
      */
     private $movies;
@@ -72,6 +79,18 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }

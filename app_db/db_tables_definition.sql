@@ -3,7 +3,8 @@
 CREATE TABLE IF NOT EXISTS Users (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
 	user_name VARCHAR(30) NOT NULL,
-	email varchar(30) NOT NULL
+	email varchar(30) NOT NULL,
+	password varchar(30) NOT NULL
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=latin1
@@ -37,7 +38,7 @@ COLLATE=latin1_swedish_ci;
 
 INSERT INTO Genres (`genre_movie`) VALUES ("Acción"),("Terror"),("Comedia"),("Ficción"),("Drama");
 
-INSERT INTO Users (`user_name`, `email`) VALUES ("Lucelly", "lucelly@test.com"),("Andres", "andres@test.com");
+INSERT INTO Users (`user_name`, `email`, `password`) VALUES ("Lucelly", "lucelly@test.com", "lucellys"),("Andres", "andres@test.com", "andresr");
 
 INSERT INTO Movies (
     `user_id`,
