@@ -1,3 +1,7 @@
 movies:
     path: /
     controller: App\Controller\MovieController::index
+
+register:
+    path: /registro
+    controller: App\Controller\UserController::register       
