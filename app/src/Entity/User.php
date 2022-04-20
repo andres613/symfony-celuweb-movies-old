@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -13,7 +14,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Table(name="Users")
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -44,6 +45,13 @@ class User
      * @ORM\Column(name="password", type="string", length=30, nullable=false)
      */
     private $password;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Movie", mappedBy="user")
@@ -101,5 +109,20 @@ class User
     public function getMovies(): Collection {
         return $this->movies;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getRoles(){}
+
+    public function getSalt(){}
+
+    public function eraseCredentials(){}
 
 }
